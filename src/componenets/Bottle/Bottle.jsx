@@ -1,7 +1,7 @@
-import './Bottle.css'
-// eslint-disable-next-line react/prop-types
+import './Bottle.css';
+import PropTypes from 'prop-types';
+
 const Bottle = ({ bottle,handleAddToCard }) => {
-    // eslint-disable-next-line react/prop-types
     const { name, img, price} = bottle;
     return (
         <div className='bottle'>
@@ -12,5 +12,9 @@ const Bottle = ({ bottle,handleAddToCard }) => {
         </div>
     );
 };
-
+Bottle.propTypes = 
+{
+    bottle:PropTypes.object.isRequired,
+    handleAddToCard:PropTypes.func.isRequired
+}
 export default Bottle;
