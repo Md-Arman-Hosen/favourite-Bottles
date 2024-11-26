@@ -2,3 +2,12 @@
     display: grid;
     grid-template-columns: repeat(3,1fr);
 }
+.body-container{
+    display: flex;
+}
+.cart-container{
+    border: 2px solid rgba(0, 0, 0, 0.238);
+    background-color: bisque;
+    padding: 10px;
+    border-radius: 15px;
+}

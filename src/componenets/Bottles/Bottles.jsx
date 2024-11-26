@@ -15,51 +15,54 @@ const Bottles = () => {
             .then(data => setBottles(data))
     }, [])
     //load cart from local storage
-    useEffect(()=>{
-    if(bottles.length>0){
-        const storedCart =  getStoredCart();
-        console.log(storedCart , bottles);
-        const savedCart =[];
-        for (const id of storedCart){
-            console.log(id);
-            const bottle= bottles.find(bottle => bottle.id === id);
-            if (bottle){
-                savedCart.push(bottle);
+    useEffect(() => {
+        if (bottles.length > 0) {
+            const storedCart = getStoredCart();
+            console.log(storedCart, bottles);
+            const savedCart = [];
+            for (const id of storedCart) {
+                console.log(id);
+                const bottle = bottles.find(bottle => bottle.id === id);
+                if (bottle) {
+                    savedCart.push(bottle);
+                }
             }
+            setCart(savedCart);
         }
-        setCart(savedCart);
+    }, [bottles])
+
+
+
+    const handleAddToCard = bottle => {
+        const newCart = [...cart, bottle];
+        setCart(newCart);
+        addToLS(bottle.id);
+
     }
-    },[bottles])   
-
-
-
-   const handleAddToCard = bottle=> {
-      const newCart = [...cart, bottle];
-      setCart(newCart);
-      addToLS(bottle.id);
-
-   }
-   const handleRemoveFromCart = id =>{
-    const remainingCart = cart.filter (bottle=> bottle.id !== id);
-    setCart(remainingCart);
-      removeFromLS(id);
-   }
+    const handleRemoveFromCart = id => {
+        const remainingCart = cart.filter(bottle => bottle.id !== id);
+        setCart(remainingCart);
+        removeFromLS(id);
+    }
 
     return (
-        <div>
-            <h2>bottles here: {bottles.length}</h2>
-             <Cart 
-             cart = {cart}
-             handleRemoveFromCart = {handleRemoveFromCart}
-             ></Cart>
+        <div className='body-container'>
+
             <div className='bottle-container'>
                 {
                     bottles.map(bottle => <Bottle
                         bottle={bottle}
                         key={bottle.id}
-                        handleAddToCard ={handleAddToCard}
+                        handleAddToCard={handleAddToCard}
                     ></Bottle>)
                 }
+            </div>
+            <div className='cart-container'>
+            <h2>Total bottles: {bottles.length}</h2>
+                <Cart
+                    cart={cart}
+                    handleRemoveFromCart={handleRemoveFromCart}
+                ></Cart>
             </div>
         </div>
     );
